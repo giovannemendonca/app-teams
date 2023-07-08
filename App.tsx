@@ -2,7 +2,7 @@ import { StatusBar } from 'react-native'
 import { ThemeProvider } from 'styled-components/native'
 import Groups from '@screens/Groups'
 import theme from '@theme/index'
-import Loading from '@components/Loading'
+import { Loading } from '@components/Loading'
 
 import {
   useFonts,
@@ -18,9 +18,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar 
-        barStyle="light-content"
-        backgroundColor="transparent"
+      <StatusBar
+        barStyle='light-content'
+        backgroundColor='transparent'
         translucent
       />
       {fontsLoaded ? <Groups /> : <Loading />}
