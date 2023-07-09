@@ -6,7 +6,7 @@ export const Container = styled.View`
 `
 
 export const Title = styled.Text`
-  align-items: center;
+  text-align: center;
 
   font-size: ${({ theme }) => theme.FONT_SIZE.XL};
   font-family: ${({ theme }) => theme.FONT_FAMILY.BOLD};

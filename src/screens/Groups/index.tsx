@@ -11,7 +11,7 @@ export default function Groups() {
   const [groups, setGroups] = useState<string[]>([
     'Galera do Divina',
     'Galera da CEC',
-    'Galera da ETEC'
+    'Galera da ETEC',
   ])
 
   return (
