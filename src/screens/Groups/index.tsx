@@ -5,6 +5,7 @@ import { GroupCard } from '@components/GroupCard'
 import { useState } from 'react'
 import { FlatList } from 'react-native'
 import { ListEmply } from '@components/ListEmply'
+import { Button } from '@components/Button'
 
 export default function Groups() {
   const [groups, setGroups] = useState<string[]>([
@@ -29,6 +30,8 @@ export default function Groups() {
           <ListEmply message='Que tal cadastrar a primeira turma?' />
         )}
       />
+
+      <Button title='Criar nova turma' />
     </S.container>
   )
 }
