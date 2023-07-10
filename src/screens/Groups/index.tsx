@@ -1,18 +1,22 @@
 import { Header } from '@components/Header'
 import * as S from './styles'
 import { Highlight } from '@components/Highlight'
-import { GroupCard } from '@components/GroupCard'
 import { useState } from 'react'
-import { FlatList} from 'react-native'
+import { FlatList } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+
+import { GroupCard } from '@components/GroupCard'
 import { ListEmply } from '@components/ListEmply'
 import { Button } from '@components/Button'
 
 export default function Groups() {
-  const [groups, setGroups] = useState<string[]>([
-    'Galera do Divina',
-    'Galera da CEC',
-    'Galera da ETEC',
-  ])
+  const [groups, setGroups] = useState<string[]>([])
+
+  const navigation = useNavigation()
+  
+  const handlerNewGroup = () => {
+    navigation.navigate('new')
+  }
 
   return (
     <S.container>
@@ -32,7 +36,10 @@ export default function Groups() {
         showsVerticalScrollIndicator={false}
       />
 
-      <Button title='Criar nova turma' />
+      <Button
+        title='Criar nova turma'
+        onPress={handlerNewGroup}
+      />
     </S.container>
   )
 }
