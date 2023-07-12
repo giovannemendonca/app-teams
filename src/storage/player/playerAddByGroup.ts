@@ -8,20 +8,20 @@ export async function playerAddByGroup(
   newPlayer: PlayerStorageDTO,
   group: string
 ) {
-  const storagePlayers = await playerGetByGroup(group)
-
-  const playerAlreadyExists = storagePlayers.filter(
-    (player) => player.name === newPlayer.name
-  )
-  if (playerAlreadyExists.length > 0) {
-    throw new AppError('Jogador já existe')
-  }
-
-  const storage = JSON.stringify([...storagePlayers, newPlayer])
-
-  await AsyncStorage.setItem(`${PLAYER_COLLECTION}-${group}`, storage)
   //eslint-disable-next-line
   try {
+    const storagePlayers = await playerGetByGroup(group)
+
+    const playerAlreadyExists = storagePlayers.filter(
+      (player) => player.name === newPlayer.name
+    )
+    if (playerAlreadyExists.length > 0) {
+      throw new AppError('Jogador já existe')
+    }
+
+    const storage = JSON.stringify([...storagePlayers, newPlayer])
+
+    await AsyncStorage.setItem(`${PLAYER_COLLECTION}-${group}`, storage)
   } catch (error) {
     throw error
   }

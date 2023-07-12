@@ -17,7 +17,6 @@ export default function Groups() {
 
   useFocusEffect(
     useCallback(() => {
-      console.log('Use Focus EXECUTOU')
       fetchGroups()
     }, [])
   )
