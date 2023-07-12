@@ -8,6 +8,7 @@ import Input from '@components/Input'
 import { Highlight } from '@components/Highlight'
 
 import { groupCreate } from '@storage/group/groupCreate'
+
 import { AppError } from '@utils/AppError'
 
 import * as S from './styles'
