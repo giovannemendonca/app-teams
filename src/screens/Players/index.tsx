@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Alert, FlatList, TextInput } from 'react-native'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 import { Header } from '@components/Header'
 import { Highlight } from '@components/Highlight'
@@ -16,6 +16,7 @@ import { AppError } from '@utils/AppError'
 import { playerAddByGroup } from '@storage/player/playerAddByGroup'
 import { PlayersGetByGroupAndTeam } from '@storage/player/playGetByGroupAndTeam'
 import { playerRemoveByGroup } from '@storage/player/pleyerRemoveByGroup'
+import { groupRemoveByName } from '@storage/group/groupRemoveByName'
 
 type RouteParams = {
   group: string
@@ -25,6 +26,8 @@ export function Players() {
   const [newPlayerName, setNewPlayerName] = useState('')
   const [team, setTeam] = useState('time A')
   const [players, setPlayers] = useState<PlayerStorageDTO[]>([])
+
+  const navigator = useNavigation()
 
   const route = useRoute()
   const { group } = route.params as RouteParams
@@ -66,6 +69,23 @@ export function Players() {
       console.log(error)
       Alert.alert('Remover Pessoa', 'Não foi possivel remover essa pessoa')
     }
+  }
+
+  const groupRemove = async () => {
+    try {
+      await groupRemoveByName(group)
+      navigator.navigate('groups')
+    } catch (error) {
+      console.log(error)
+      Alert.alert('Remover Grupo', 'Não foi possivel remover esse grupo')
+    }
+  }
+
+  const hanlerGroupRemove = async () => {
+    Alert.alert('Remover', 'Deseja remover o grupo?', [
+      { text: 'Não', style: 'cancel' },
+      { text: 'Sim', onPress: () => groupRemove() }
+    ])
   }
 
   const fetchPlayersByTeam = async () => {
@@ -133,7 +153,7 @@ export function Players() {
         renderItem={({ item }) => (
           <PlayerCard
             name={item.name}
-            onRemove={() =>hanlerPlayerRemove(item.name)}
+            onRemove={() => hanlerPlayerRemove(item.name)}
           />
         )}
         ListEmptyComponent={() => (
@@ -148,6 +168,7 @@ export function Players() {
       <Button
         title='Remover Turma'
         type='SECONDARY'
+        onPress={hanlerGroupRemove}
       />
     </S.Container>
   )
