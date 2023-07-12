@@ -15,6 +15,7 @@ import { PlayerStorageDTO } from '@storage/player/PlayerStorageDTO'
 import { AppError } from '@utils/AppError'
 import { playerAddByGroup } from '@storage/player/playerAddByGroup'
 import { PlayersGetByGroupAndTeam } from '@storage/player/playGetByGroupAndTeam'
+import { playerRemoveByGroup } from '@storage/player/pleyerRemoveByGroup'
 
 type RouteParams = {
   group: string
@@ -54,6 +55,16 @@ export function Players() {
         console.log(error)
         Alert.alert('Nova Pessoa', 'Não foi possível adicionar')
       }
+    }
+  }
+
+  const hanlerPlayerRemove = async (playerName: string) => {
+    try {
+      await playerRemoveByGroup(playerName, group)
+      fetchPlayersByTeam()
+    } catch (error) {
+      console.log(error)
+      Alert.alert('Remover Pessoa', 'Não foi possivel remover essa pessoa')
     }
   }
 
@@ -122,9 +133,7 @@ export function Players() {
         renderItem={({ item }) => (
           <PlayerCard
             name={item.name}
-            onRemove={() => {
-              console.log('remove')
-            }}
+            onRemove={() =>hanlerPlayerRemove(item.name)}
           />
         )}
         ListEmptyComponent={() => (
